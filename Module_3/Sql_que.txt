@@ -53,7 +53,16 @@ SELECT e.ename, e.job, d.dname, d.loc
 FROM emp_table e
 JOIN dept_table d ON e.deptno = d.deptno;
 
-25. 
+25.
+DELIMITER //
+CREATE PROCEDURE GetEmployeeAndDepartment(IN dno INT)
+BEGIN
+    SELECT ename, dname
+    FROM emp_table
+    JOIN dept_table ON emp_table.deptno = dept_table.deptno
+    WHERE emp_table.deptno = dno;
+END //
+DELIMITER ;
 
 26. ALTER TABLE Student_table ADD COLUMN Pin BIGINT;
 
