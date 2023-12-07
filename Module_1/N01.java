@@ -12,6 +12,9 @@ public class N01 {
         byte n2 = input.nextByte();
         byte n3 = input.nextByte();
 
+        // n1 > n2,n3 = n1 is greatest
+        // n2 > n1,n3 = n2 is greatest
+        // n3 > n2,n1 = n3 is greatest
         if (n1 > n2) {
             if (n1 > n3) {
                 System.out.println("First number is the greatest");

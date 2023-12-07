@@ -2,7 +2,7 @@
 
 2. SELECT * FROM Emp_table ORDER BY deptno asc,job desc;
 
-3. SELECT job FROM Emp_table GROUP BY job ORDER BY asc;
+3. SELECT distinct job FROM Emp_table GROUP BY job ORDER BY desc;
 
 4. SELECT * FROM Emp_table WHERE year(hiredata) < 1981;
 
@@ -24,18 +24,42 @@
 
 13. 
 
-14. SELECT * FROM Emp_table
+14. 
+
+15. SELECT * FROM Emp_table
 WHERE Sal IN (SELECT Sal FROM Emp_table WHERE Ename IN ('FORD', 'SMITH'))
 ORDER BY Sal DESC;
 
-15. SELECT * FROM Emp_table
+16. SELECT * FROM Emp_table
 WHERE Job IN (SELECT Job FROM Emp_table WHERE Ename IN ('ALLEN', 'SMITH'))
 
-16. 
+17. 
 
-17. SELECT MAX(Sal) FROM emp_table;
+18. SELECT MAX(Sal) FROM emp_table;
 
+19.
 
+20. SELECT SUM(Sal) FROM emp_table WHERE Job="MANAGER";
+
+21. SELECT * FROM emp_table WHERE Ename LIKE "A%";
+
+22. SELECT *,MIN(Sal) FROM emp_table GROUP BY Job ORDER BY Sal ASC;
+
+23. SELECT * FROM emp_table 
+WHERE sal > (SELECT sal FROM emp_table WHERE Ename="BLAKE")  ;
+
+24. CREATE VIEW v1 AS
+SELECT e.ename, e.job, d.dname, d.loc
+FROM emp_table e
+JOIN dept_table d ON e.deptno = d.deptno;
+
+25. 
+
+26. ALTER TABLE Student_table ADD COLUMN Pin BIGINT;
+
+27. ALTER TABLE Student MODIFY Sname VARCHAR(40);
+
+28. 
 
 
 

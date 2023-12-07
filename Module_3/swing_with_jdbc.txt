@@ -1,0 +1,265 @@
+package Assignment_Tops.Module_3;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+class Message {
+    Message(String msg) {
+        JLabel l1;
+
+        JFrame fr = new JFrame("Message");
+        fr.setVisible(true);
+        fr.setSize(350, 150);
+        fr.setLayout(null);
+
+        l1 = new JLabel(msg);
+        l1.setBounds(40, 40, 300, 30);
+        fr.add(l1);
+    }
+}
+
+
+class Login implements ActionListener {
+    JLabel l1, l2;
+    JTextField t1, t2;
+    JButton b1;
+
+    Login() {
+        JFrame fr = new JFrame("Login");
+        fr.setVisible(true);
+        fr.setSize(400, 350);
+        fr.setLayout(null);
+
+        l1 = new JLabel("Email");
+        l1.setBounds(50, 40, 70, 30);
+        fr.add(l1);
+        t1 = new JTextField();
+        t1.setBounds(50, 80, 250, 25);
+        fr.add(t1);
+
+        l2 = new JLabel("Password");
+        l2.setBounds(50, 130, 70, 30);
+        fr.add(l2);
+        t2 = new JTextField();
+        t2.setBounds(50, 170, 250, 25);
+        fr.add(t2);
+
+        b1 = new JButton("Login");
+        b1.setBounds(50, 230, 250, 30);
+        fr.add(b1);
+        b1.addActionListener(this);
+    }
+
+    public static Connection CreateConnection() {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_data", "root", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b1) {
+            String email = t1.getText();
+            String password = t2.getText();
+            try {
+                Connection conn = Lecture.Login.CreateConnection();
+                String sql = "select * from user_data where email=? and password=?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, email);
+                pst.setString(2, password);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    String name=rs.getString("name");
+                    String contact=String.valueOf(rs.getLong("contact"));
+                    String email2=rs.getString("email");
+                    String password2=rs.getString("password");
+                    new Lecture.UserData(name,contact,email2,password2);
+                }else{
+                    new Lecture.Message("Data not found");
+                }
+                t1.setText("");
+                t2.setText("");
+
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+
+        }
+    }
+}
+
+class Register implements ActionListener {
+    JLabel l1, l2, l3, l4;
+    JTextField t1, t2, t3, t4;
+    JButton b1;
+
+    Register() {
+        JFrame fr = new JFrame("Register");
+        fr.setVisible(true);
+        fr.setSize(400, 500);
+        fr.setLayout(null);
+
+        l1 = new JLabel("Name");
+        l1.setBounds(50, 40, 70, 30);
+        fr.add(l1);
+        t1 = new JTextField();
+        t1.setBounds(50, 80, 250, 25);
+        fr.add(t1);
+
+        l2 = new JLabel("Contact");
+        l2.setBounds(50, 120, 70, 30);
+        fr.add(l2);
+        t2 = new JTextField();
+        t2.setBounds(50, 160, 250, 25);
+        fr.add(t2);
+
+        l3 = new JLabel("Email");
+        l3.setBounds(50, 200, 70, 30);
+        fr.add(l3);
+        t3 = new JTextField();
+        t3.setBounds(50, 240, 250, 25);
+        fr.add(t3);
+
+        l4 = new JLabel("Password");
+        l4.setBounds(50, 280, 70, 30);
+        fr.add(l4);
+        t4 = new JTextField();
+        t4.setBounds(50, 320, 250, 25);
+        fr.add(t4);
+
+        b1 = new JButton("Register");
+        b1.setBounds(50, 380, 250, 30);
+        fr.add(b1);
+        b1.addActionListener(this);
+
+    }
+
+    public static Connection CreateConnection() {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_data", "root", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b1) {
+            String name = t1.getText();
+            Long contact = Long.parseLong(t2.getText());
+            String email = t3.getText();
+            String password = t4.getText();
+            System.out.println("Register");
+            try {
+                Connection conn = Lecture.Register.CreateConnection();
+                String sql = "insert into user_data(name,contact,email,password) values(?,?,?,?)";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, name);
+                pst.setLong(2, contact);
+                pst.setString(3, email);
+                pst.setString(4, password);
+                pst.executeUpdate();
+                t1.setText("");
+                t2.setText("");
+                t3.setText("");
+                t4.setText("");
+                new Lecture.Message("Your account is created, now you can login");
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+    }
+}
+
+class UserData {
+    JLabel l1,l2,l3,l4,d1,d2,d3,d4;
+    UserData(String name,String contact,String email,String password) {
+        JFrame fr = new JFrame("UserData");
+        fr.setVisible(true);
+        fr.setSize(400, 350);
+        fr.setLayout(null);
+
+        l1= new JLabel("Name :");
+        l1.setBounds(50,50,100,30);
+        fr.add(l1);
+        d1= new JLabel(name);
+        d1.setBounds(130,50,150,30);
+        fr.add(d1);
+
+        l2= new JLabel("Contact :");
+        l2.setBounds(50,80,100,30);
+        fr.add(l2);
+        d2= new JLabel(contact);
+        d2.setBounds(130,80,150,30);
+        fr.add(d2);
+
+        l3= new JLabel("Email :");
+        l3.setBounds(50,110,100,30);
+        fr.add(l3);
+        d3= new JLabel(email);
+        d3.setBounds(130,110,250,30);
+        fr.add(d3);
+
+        l4= new JLabel("Password :");
+        l4.setBounds(50,140,100,30);
+        fr.add(l4);
+        d4= new JLabel(password);
+        d4.setBounds(130,140,150,30);
+        fr.add(d4);
+
+    }
+
+}
+
+class Decision1 implements ActionListener {
+    JButton b1;
+    JButton b2;
+
+    Decision1() {
+        JFrame fr = new JFrame("SignUp");
+        fr.setVisible(true);
+        fr.setSize(350, 200);
+        fr.setLayout(null);
+
+        b1 = new JButton("Login");
+        b1.setBounds(50, 50, 100, 40);
+        fr.add(b1);
+        b2 = new JButton("Register");
+        b2.setBounds(170, 50, 100, 40);
+        fr.add(b2);
+
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b1) {
+            new Lecture.Login();
+        } else if (e.getSource() == b2) {
+            new Lecture.Register();
+        }
+    }
+}
+
+public class Swing_with_jdbc {
+    public static void main(String[] args) {
+        new Lecture.Decision1();
+
+    }
+}
