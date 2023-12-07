@@ -6,26 +6,24 @@ public class N01 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter 3 number to find the greatest among them");
-        byte n1=input.nextByte();
-        byte n2=input.nextByte();
-        byte n3=input.nextByte();
 
-        if(n1>n2){
-            if(n1>n3){
+        // taking user input of three numbers
+        byte n1 = input.nextByte();
+        byte n2 = input.nextByte();
+        byte n3 = input.nextByte();
+
+        if (n1 > n2) {
+            if (n1 > n3) {
                 System.out.println("First number is the greatest");
-            }else{
+            } else {
                 System.out.println("Second number is the greatest");
             }
-        }else{
-            if(n2>n3){
+        } else {
+            if (n2 > n3) {
                 System.out.println("Second number is the greatest");
-            }else {
+            } else {
                 System.out.println("Third number is the greatest");
             }
         }
-
-
     }
-
-
 }
