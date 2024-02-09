@@ -1,0 +1,3 @@
+- lib jar file
+- class name should be Capital case
+- int,bigint:11 varchar:255;

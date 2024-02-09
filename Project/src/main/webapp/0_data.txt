@@ -1,0 +1,9 @@
+###### FOR OTP #######
+malefashion766@gmail.com
+malefashion@123
+lzhw qzht pvah dlpo
+
+###### FOR Payment gateway #######
+merchant id: NVIwANOPMLZZMp
+key id: rzp_test_n2y122JmPDQv2g
+key secret: t4fAYoZAmyYkMA7owz08H84k

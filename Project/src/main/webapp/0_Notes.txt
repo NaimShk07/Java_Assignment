@@ -1,0 +1,30 @@
+-forgot password 
+when we are not login
+when we don't know the password
+
+-change password
+when we are log in
+when we know the password
+
+- if you have send object to header file and other has import the header file
+then other file can use that object.
+
+- all the session and back session code is in header
+
+- if you are using data from session you also have to update when it's needed
+
+# step #
+- html to jsp
+- controller, model, dao for seller, customer, admin
+- register
+- login
+- profile update with session update
+- logout session and back stop
+- change password when log in
+- forgot password when not login with otp
+- forgot pass - check email > send otp > check otp > new pass
+- add product
+- manage product: edit and delete
+- view product
+- wishlist product:add, show all, delete, if already exist don't show btn,show number of item
+- cart : same as wishlist,qty inc/dec, total amt
